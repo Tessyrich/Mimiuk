@@ -1,0 +1,116 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../data/site";
+import storefront from "../assets/photos/storefront.jpg";
+---
+<section id="visit" class="scroll-mt-20">
+  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+    <div class="min-w-0">
+      <p class="eyebrow">Find us</p>
+      <h2 class="mt-3 font-display text-5xl font-bold text-cream sm:text-6xl">On Oldham Road, Failsworth</h2>
+      <figure class="frame mt-8 overflow-hidden rounded-2xl">
+        <Image src={storefront} alt="Shanky's shopfront with the sign lit" widths={[600, 1000]} sizes="(min-width: 768px) 50vw, 100vw" class="aspect-[16/9] w-full object-cover" />
+      </figure>
+      <div class="mt-8 grid gap-8 sm:grid-cols-2">
+        <div>
+          <h3 class="font-display text-2xl font-bold text-gold">Address</h3>
+          <address class="mt-2 not-italic text-cream">{site.address.line1}<br />{site.address.town}<br />{site.address.postcode}</address>
+          <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-ghost mt-4 text-sm">Open in Google Maps</a>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl font-bold text-gold">Hours</h3>
+          <dl class="mt-2 space-y-2 text-cream">
+            {site.hours.map((h) => (<div><dt class="text-sm text-sand">{h.days}</dt><dd class="tabular-nums">{h.open} to {h.close}</dd></div>))}
+          </dl>
+          <h3 class="mt-6 font-display text-2xl font-bold text-gold">Call or WhatsApp</h3>
+          <p class="mt-2 select-all text-cream tabular-nums">{site.phoneDisplay}</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="book" class="min-w-0 scroll-mt-24 rounded-3xl border border-line bg-coal p-6 sm:p-8">
+      <p class="eyebrow">Book a table</p>
+      <h2 class="mt-3 font-display text-4xl font-bold text-cream">Tell us when, we'll confirm on WhatsApp</h2>
+      <p class="mt-2 text-sm text-sand">Fill this in and we'll open a WhatsApp message to the restaurant with your request. Walk-ins are always welcome too.</p>
+      <form id="booking-form" class="mt-6 grid gap-4 sm:grid-cols-2" novalidate>
+        <div class="sm:col-span-2">
+          <label for="bk-name" class="text-sm text-sand">Your name</label>
+          <input id="bk-name" name="name" type="text" autocomplete="name" required placeholder="Ade Okoro" class="mt-1" />
+        </div>
+        <div>
+          <label for="bk-date" class="text-sm text-sand">Date</label>
+          <input id="bk-date" name="date" type="date" required class="mt-1" />
+        </div>
+        <div>
+          <label for="bk-time" class="text-sm text-sand">Time</label>
+          <input id="bk-time" name="time" type="time" value="19:30" min="16:00" required class="mt-1" />
+        </div>
+        <div>
+          <label for="bk-guests" class="text-sm text-sand">Guests</label>
+          <input id="bk-guests" name="guests" type="number" min="1" max="40" value="2" required class="mt-1" />
+        </div>
+        <div>
+          <label for="bk-occasion" class="text-sm text-sand">Occasion</label>
+          <select id="bk-occasion" name="occasion" class="mt-1">
+            <option>Dinner</option>
+            <option>Birthday</option>
+            <option>VIP booth</option>
+            <option>Private hire</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="bk-note" class="text-sm text-sand">Anything we should know?</label>
+          <textarea id="bk-note" name="note" rows="2" placeholder="Allergies, a cake to bring in, a table by the screen" class="mt-1"></textarea>
+        </div>
+        <p id="bk-error" class="text-sm text-ember sm:col-span-2" hidden>Please add your name, a date and a time.</p>
+        <button type="submit" class="btn btn-gold sm:col-span-2">Prepare my WhatsApp request</button>
+      </form>
+      <div id="bk-result" class="mt-5 rounded-2xl border border-gold/40 bg-ink p-4" hidden>
+        <p class="text-sm text-sand">Your message is ready. Send it on WhatsApp, or copy it and call us on <span class="text-cream tabular-nums">{site.phoneDisplay}</span>.</p>
+        <p id="bk-preview" class="mt-3 whitespace-pre-wrap text-sm text-cream"></p>
+        <div class="mt-4 flex flex-wrap gap-3">
+          <a id="bk-wa" href="#" target="_blank" rel="noopener" class="btn btn-gold text-sm">Send on WhatsApp</a>
+          <button id="bk-copy" type="button" class="btn btn-ghost text-sm">Copy message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ phone: site.phoneIntl }}>
+  const form = document.getElementById("booking-form");
+  const err = document.getElementById("bk-error");
+  const result = document.getElementById("bk-result");
+  const preview = document.getElementById("bk-preview");
+  const wa = document.getElementById("bk-wa");
+  const copy = document.getElementById("bk-copy");
+  const dateEl = document.getElementById("bk-date");
+  if (dateEl && !dateEl.value) {
+    const d = new Date(); d.setDate(d.getDate() + 1);
+    dateEl.value = d.toISOString().slice(0, 10);
+    dateEl.min = new Date().toISOString().slice(0, 10);
+  }
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const name = String(f.get("name") || "").trim();
+    const date = String(f.get("date") || "");
+    const time = String(f.get("time") || "");
+    if (!name || !date || !time) { err.hidden = false; return; }
+    err.hidden = true;
+    const when = new Date(`${date}T${time}`);
+    const nice = when.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" }) + " at " + when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    const note = String(f.get("note") || "").trim();
+    const msg = `Hi Shanky's, I'd like to book a table.\nName: ${name}\nWhen: ${nice}\nGuests: ${f.get("guests")}\nOccasion: ${f.get("occasion")}${note ? `\nNotes: ${note}` : ""}`;
+    preview.textContent = msg;
+    wa.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+    result.hidden = false;
+    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+  copy?.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(preview.textContent || ""); copy.textContent = "Copied"; }
+    catch { const r = document.createRange(); r.selectNodeContents(preview); const s = getSelection(); s?.removeAllRanges(); s?.addRange(r); copy.textContent = "Select and copy"; }
+    setTimeout(() => (copy.textContent = "Copy message"), 2000);
+  });
+</script>

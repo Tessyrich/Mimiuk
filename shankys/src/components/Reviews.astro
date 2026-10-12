@@ -1,0 +1,25 @@
+---
+import { reviews, site } from "../data/site";
+---
+<section id="reviews" class="scroll-mt-20 border-y border-line bg-coal">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">What people say</p>
+        <h2 class="mt-3 font-display text-5xl font-bold text-cream sm:text-6xl">Rated {site.rating.score} on Google</h2>
+      </div>
+      <p class="text-sm text-sand">From {site.rating.count} reviews</p>
+    </div>
+    <ul class="mt-10 grid gap-6 md:grid-cols-3">
+      {reviews.map((r) => (
+        <li class="flex min-w-0 flex-col justify-between rounded-2xl border border-line bg-ink p-6">
+          <blockquote>
+            <p class="text-gold" aria-label="Five stars">★★★★★</p>
+            <p class="mt-3 text-cream">“{r.quote}”</p>
+          </blockquote>
+          <footer class="mt-5 text-sm text-sand">{r.name} · {r.when} · via {r.source}</footer>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

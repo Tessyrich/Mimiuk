@@ -1,0 +1,25 @@
+---
+import { site } from "../data/site";
+const links = [
+  { href: "#menu", label: "Menu" },
+  { href: "#lounge", label: "Lounge & events" },
+  { href: "#gallery", label: "Gallery" },
+  { href: "#reviews", label: "Reviews" },
+  { href: "#visit", label: "Find us" },
+];
+---
+<header class="sticky z-40 border-b border-line/60 bg-ink/85 backdrop-blur" style="top: env(safe-area-inset-top, 0px);">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href="#top" class="flex items-center gap-3" aria-label="Shanky's home">
+      <span class="grid size-9 place-items-center rounded-full border border-gold/70 font-display text-lg font-bold text-gold">S</span>
+      <span class="font-display text-2xl font-bold tracking-wide text-cream">SHANKY'S</span>
+    </a>
+    <nav class="hidden items-center gap-6 text-sm text-sand md:flex" aria-label="Sections">
+      {links.map((l) => <a href={l.href} class="hover:text-cream">{l.label}</a>)}
+    </nav>
+    <a href="#book" class="btn btn-gold !px-4 !py-2.5 text-sm">Book a table</a>
+  </div>
+  <nav class="flex gap-5 overflow-x-auto px-4 pb-3 text-sm text-sand md:hidden" aria-label="Sections (mobile)">
+    {links.map((l) => <a href={l.href} class="shrink-0 whitespace-nowrap">{l.label}</a>)}
+  </nav>
+</header>

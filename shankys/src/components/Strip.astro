@@ -1,0 +1,13 @@
+---
+import { site } from "../data/site";
+---
+<section class="border-y border-line bg-coal">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 px-4 py-4 text-sm sm:px-6">
+    <p class="text-sand"><span class="text-cream">Open from 4pm</span> every day · Sun to Thu until midnight · Fri and Sat until 2:30am</p>
+    <p class="flex flex-wrap items-center gap-3 text-sand">
+      <span>Delivery:</span>
+      <a href={site.order.uberEats} target="_blank" rel="noopener" class="text-cream underline decoration-gold/60 underline-offset-4 hover:decoration-gold">Uber Eats</a>
+      <a href={site.order.justEat} target="_blank" rel="noopener" class="text-cream underline decoration-gold/60 underline-offset-4 hover:decoration-gold">Just Eat</a>
+    </p>
+  </div>
+</section>

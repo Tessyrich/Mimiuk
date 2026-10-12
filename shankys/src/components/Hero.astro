@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import { site } from "../data/site";
+import fish from "../assets/photos/grilled-fish.jpg";
+---
+<section id="top" class="relative overflow-hidden">
+  <div class="pointer-events-none absolute -left-40 top-10 size-[28rem] rounded-full bg-gold/10 blur-3xl"></div>
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 md:grid-cols-[1.1fr_.9fr] md:pt-20">
+    <div class="min-w-0">
+      <p class="eyebrow">Restaurant · Bar · Lounge · Failsworth</p>
+      <h1 class="mt-4 font-display text-6xl font-extrabold leading-[.95] tracking-tight text-cream sm:text-7xl lg:text-8xl">
+        Nigerian food.<br /><span class="text-gold">Late nights.</span><br />Oldham Road.
+      </h1>
+      <p class="mt-6 max-w-prose text-lg text-sand">
+        Pepper soup that warms you through, party jollof, ofada with ayamase, and a bar that keeps going until 2:30am on weekends. Eat in, take away, or book the booth for a birthday.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#book" class="btn btn-gold">Book a table</a>
+        <a href="#menu" class="btn btn-ghost">See the menu</a>
+      </div>
+      <dl class="mt-10 grid max-w-md grid-cols-3 gap-4 border-t border-line pt-6 text-sm">
+        <div><dt class="text-sand">Google rating</dt><dd class="mt-1 font-display text-3xl font-bold text-cream tabular-nums">{site.rating.score}<span class="text-base text-sand"> / 5</span></dd></div>
+        <div><dt class="text-sand">Food hygiene</dt><dd class="mt-1 font-display text-3xl font-bold text-cream tabular-nums">{site.hygiene}<span class="text-base text-sand"> / 5</span></dd></div>
+        <div><dt class="text-sand">Weekends until</dt><dd class="mt-1 font-display text-3xl font-bold text-cream tabular-nums">2:30<span class="text-base text-sand"> am</span></dd></div>
+      </dl>
+    </div>
+    <figure class="frame relative mx-auto w-full max-w-md overflow-hidden rounded-2xl md:max-w-none">
+      <Image src={fish} alt="Whole grilled fish with fried plantain, onions and peppers, with a bowl of pepper sauce" widths={[480, 800, 1200]} sizes="(min-width: 768px) 45vw, 100vw" class="aspect-[4/5] w-full object-cover" loading="eager" />
+      <figcaption class="absolute bottom-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-xs text-sand backdrop-blur">Grilled fish, plantain, pepper sauce</figcaption>
+    </figure>
+  </div>
+</section>

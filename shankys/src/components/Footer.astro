@@ -1,0 +1,20 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-line bg-coal">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-start justify-between gap-6 px-4 py-10 text-sm text-sand sm:px-6">
+    <div>
+      <p class="font-display text-2xl font-bold text-cream">SHANKY'S</p>
+      <p class="mt-1">Restaurant, Bar &amp; Lounge</p>
+      <p class="mt-3">{site.address.line1}, {site.address.town}, {site.address.postcode}</p>
+      <p class="tabular-nums">{site.phoneDisplay}</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <a href={site.order.uberEats} target="_blank" rel="noopener" class="hover:text-cream">Order on Uber Eats</a>
+      <a href={site.order.justEat} target="_blank" rel="noopener" class="hover:text-cream">Order on Just Eat</a>
+      <a href={site.mapsUrl} target="_blank" rel="noopener" class="hover:text-cream">Google Maps</a>
+    </div>
+    <p class="w-full text-xs text-sand/70">© {year} {site.fullName}. Food hygiene rating 5 (Very good).</p>
+  </div>
+</footer>

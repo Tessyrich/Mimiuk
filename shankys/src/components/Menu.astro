@@ -1,0 +1,34 @@
+---
+import { menu } from "../data/site";
+---
+<section id="menu" class="scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">The menu</p>
+        <h2 class="mt-3 font-display text-5xl font-bold text-cream sm:text-6xl">Cooked the way it is at home</h2>
+      </div>
+      <p class="max-w-sm text-sm text-sand">Swallow dishes come with amala, poundo, eba or semolina. Ask for your spice level and the kitchen will listen.</p>
+    </div>
+    <div class="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-2">
+      {menu.map((section) => (
+        <div class="min-w-0">
+          <h3 class="font-display text-3xl font-bold text-gold">{section.title}</h3>
+          <p class="mt-1 text-sm text-sand">{section.note}</p>
+          <ul class="mt-5 space-y-4">
+            {section.items.map((item) => (
+              <li>
+                <div class="menu-row">
+                  <span class="font-medium text-cream">{item.name}</span>
+                  <span class="font-display text-xl font-bold text-cream tabular-nums">£{item.price}</span>
+                </div>
+                <p class="mt-0.5 text-sm text-sand">{item.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="mt-10 text-xs text-sand/80">Prices shown are from the current delivery menu and may differ in the restaurant. Menu changes with the season and the market.</p>
+  </div>
+</section>

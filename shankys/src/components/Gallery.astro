@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import storefront from "../assets/photos/storefront.jpg";
+import fish from "../assets/photos/grilled-fish.jpg";
+import booths from "../assets/photos/booths.jpg";
+import interior from "../assets/photos/interior-bar.jpg";
+import bar from "../assets/photos/bar-shelf.jpg";
+import dj from "../assets/photos/dj.jpg";
+const shots = [
+  { src: storefront, alt: "Shanky's shopfront on Oldham Road decorated with black and gold balloons", span: "col-span-2 aspect-[16/9]" },
+  { src: fish, alt: "Grilled fish with plantain", span: "aspect-[3/4]" },
+  { src: booths, alt: "Booth seating with gold mosaic wall", span: "aspect-[3/4]" },
+  { src: interior, alt: "Dining room with the bar behind", span: "aspect-[3/4]" },
+  { src: bar, alt: "Back bar lined with spirits and champagne", span: "aspect-[3/4]" },
+  { src: dj, alt: "DJ playing in the lounge", span: "col-span-2 aspect-[16/9]" },
+];
+---
+<section id="gallery" class="scroll-mt-20">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24">
+    <p class="eyebrow">Gallery</p>
+    <h2 class="mt-3 font-display text-5xl font-bold text-cream sm:text-6xl">Inside 476 Oldham Road</h2>
+    <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {shots.map((s) => (
+        <figure class={`frame overflow-hidden rounded-xl ${s.span}`}>
+          <Image src={s.src} alt={s.alt} widths={[400, 800, 1200]} sizes="(min-width: 640px) 50vw, 100vw" class="size-full object-cover transition-transform duration-500 hover:scale-[1.03] motion-reduce:transition-none" loading="eager" />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

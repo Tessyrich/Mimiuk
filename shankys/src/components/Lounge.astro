@@ -1,0 +1,37 @@
+---
+import { Image } from "astro:assets";
+import dj from "../assets/photos/dj.jpg";
+import booths from "../assets/photos/booths.jpg";
+const offers = [
+  { title: "Birthday booths", body: "Reserve a booth, bring the cake. VIP service for groups who book ahead." },
+  { title: "DJ on weekends", body: "Afrobeats, amapiano and the classics from Friday night until the bar closes at 2:30am." },
+  { title: "Match nights", body: "Big screen in the booth room. Pepper soup and a cold drink while the game is on." },
+  { title: "Private hire", body: "The lounge for your own event: naming ceremonies, engagements, work socials. Ask about dates." },
+];
+---
+<section id="lounge" class="scroll-mt-20 border-y border-line bg-coal">
+  <div class="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+    <div class="grid grid-cols-2 gap-3 self-start">
+      <figure class="frame overflow-hidden rounded-2xl">
+        <Image src={dj} alt="DJ at the decks in the lounge under coloured lights" widths={[400, 700]} sizes="(min-width: 768px) 25vw, 50vw" class="aspect-[3/4] w-full object-cover" />
+      </figure>
+      <figure class="frame mt-8 overflow-hidden rounded-2xl">
+        <Image src={booths} alt="Leather booth seating with gold mosaic wall and a TV screen" widths={[400, 700]} sizes="(min-width: 768px) 25vw, 50vw" class="aspect-[3/4] w-full object-cover" />
+      </figure>
+    </div>
+    <div class="min-w-0">
+      <p class="eyebrow">Lounge &amp; events</p>
+      <h2 class="mt-3 font-display text-5xl font-bold text-cream sm:text-6xl">Dinner first. Then the night.</h2>
+      <p class="mt-5 max-w-prose text-sand">Shanky's is a restaurant until the plates are cleared and a lounge after that. Booths, a full bar, and music that gets louder as the evening goes on.</p>
+      <ul class="mt-8 grid gap-5 sm:grid-cols-2">
+        {offers.map((o) => (
+          <li class="border-l-2 border-gold/60 pl-4">
+            <h3 class="font-display text-2xl font-bold text-cream">{o.title}</h3>
+            <p class="mt-1 text-sm text-sand">{o.body}</p>
+          </li>
+        ))}
+      </ul>
+      <a href="#book" class="btn btn-gold mt-8">Plan a celebration</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+/* Layout concept: a late-night menu board. Black ground, warm gold ink, photos framed like a lit sign. */
+@theme {
+  --color-ink: #0b0a08;
+  --color-coal: #15130f;
+  --color-smoke: #221f19;
+  --color-line: #3a3528;
+  --color-cream: #f3ead8;
+  --color-sand: #b9ad94;
+  --color-gold: #d4a63a;
+  --color-gold-deep: #a67c1e;
+  --color-ember: #d2502f;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+:root {
+  --bg: var(--color-ink);
+  --fg: var(--color-cream);
+  --muted: var(--color-sand);
+  --accent: var(--color-gold);
+  color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; }
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  padding: .85rem 1.4rem; border-radius: 999px;
+  font-weight: 600; font-size: .95rem; line-height: 1;
+  transition: transform .15s ease, background-color .15s ease, color .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-gold { background: var(--color-gold); color: var(--color-ink); }
+.btn-gold:hover { background: #e3b84d; }
+.btn-ghost { border: 1px solid var(--color-line); color: var(--color-cream); }
+.btn-ghost:hover { border-color: var(--color-gold); color: var(--color-gold); }
+
+.frame { position: relative; }
+.frame::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 45%, transparent);
+  border-radius: inherit;
+}
+
+.menu-row { display: grid; grid-template-columns: 1fr auto; gap: .35rem 1rem; align-items: baseline; }
+.menu-row .dots { border-bottom: 1px dotted var(--color-line); height: .8em; }
+
+input, select, textarea {
+  width: 100%; background: var(--color-coal); color: var(--color-cream);
+  border: 1px solid var(--color-line); border-radius: .6rem; padding: .75rem .9rem; font: inherit;
+}
+input:focus, select:focus, textarea:focus, .btn:focus-visible, a:focus-visible {
+  outline: 2px solid var(--color-gold); outline-offset: 2px;
+}
